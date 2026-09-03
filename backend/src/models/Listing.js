@@ -1,0 +1,55 @@
+const { DataTypes } = require('sequelize');
+
+module.exports = (sequelize) =>
+  sequelize.define(
+    'Listing',
+    {
+      id: { type: DataTypes.UUID, defaultValue: DataTypes.UUIDV4, primaryKey: true },
+      sellerId: { type: DataTypes.UUID, allowNull: true },
+      siteUrl: { type: DataTypes.STRING(255), allowNull: false, unique: true },
+      siteEmail: { type: DataTypes.STRING(255) },
+      emailVerifiedAt: { type: DataTypes.DATE },
+      mozDa: { type: DataTypes.INTEGER },
+      ahrefDr: { type: DataTypes.INTEGER },
+      monthlyTraffic: { type: DataTypes.BIGINT },
+      language: { type: DataTypes.STRING(20) },
+      trafficCountry: { type: DataTypes.STRING(80) },
+      tatDays: { type: DataTypes.INTEGER },
+      backlinkType: { type: DataTypes.ENUM('do_follow', 'no_follow', 'both') },
+      placementType: { type: DataTypes.ENUM('guest_post', 'link_insert', 'both'), allowNull: false },
+      primaryNicheId: { type: DataTypes.UUID },
+      subNiches: { type: DataTypes.ARRAY(DataTypes.STRING), defaultValue: [] },
+      sampleUrl: { type: DataTypes.STRING(255) },
+      postGuideline: { type: DataTypes.TEXT },
+      guestPostPrice: { type: DataTypes.DECIMAL(10, 2) },
+      linkInsertPrice: { type: DataTypes.DECIMAL(10, 2) },
+      sellerPrice: { type: DataTypes.DECIMAL(10, 2) },
+      commission: { type: DataTypes.DECIMAL(10, 2) },
+      premiumEnabled: { type: DataTypes.BOOLEAN, defaultValue: false },
+      premiumNiches: {
+        type: DataTypes.ARRAY(DataTypes.ENUM('cbd', 'drug', 'casino', 'crypto', 'supplement', 'adult')),
+        defaultValue: [],
+      },
+      premiumExtraPrice: { type: DataTypes.DECIMAL(10, 2) },
+      spamScore: { type: DataTypes.INTEGER },
+      sellerWhatsapp: { type: DataTypes.STRING(40) },
+      status: {
+        type: DataTypes.ENUM('pending', 'approved', 'rejected', 'paused'),
+        defaultValue: 'pending',
+        allowNull: false,
+      },
+      source: { type: DataTypes.ENUM('admin', 'seller', 'bulk'), defaultValue: 'seller' },
+      addedByAdminEmail: { type: DataTypes.STRING(255) },
+      addedBySellerEmail: { type: DataTypes.STRING(255) },
+      rejectionReason: { type: DataTypes.TEXT },
+    },
+    {
+      tableName: 'listings',
+      indexes: [
+        { fields: ['status'] },
+        { fields: ['sellerId'] },
+        { fields: ['placementType'] },
+        { fields: ['language'] },
+      ],
+    },
+  );
