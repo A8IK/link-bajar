@@ -1,0 +1,8 @@
+User-agent: *
+Disallow: /admin
+Disallow: /buyer
+Disallow: /seller
+Disallow: /login
+Disallow: /register
+
+Sitemap: https://linkbajar.com/sitemap.xml
