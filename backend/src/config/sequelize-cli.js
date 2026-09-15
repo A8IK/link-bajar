@@ -7,6 +7,9 @@ const base = {
   host: process.env.DB_HOST || 'localhost',
   port: parseInt(process.env.DB_PORT, 10) || 5432,
   dialect: process.env.DB_DIALECT || 'postgres',
+  dialectOptions: process.env.DB_SSL === 'true'
+    ? { ssl: { require: true, rejectUnauthorized: false } }
+    : {},
 };
 
 module.exports = {

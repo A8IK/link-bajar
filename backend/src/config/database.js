@@ -16,6 +16,9 @@ const sequelize = new Sequelize(
       timestamps: true,
       underscored: false,
     },
+    dialectOptions: config.db.ssl
+      ? { ssl: { require: true, rejectUnauthorized: false } }
+      : {},
   },
 );
 

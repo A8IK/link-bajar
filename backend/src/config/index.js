@@ -21,6 +21,7 @@ module.exports = {
     user: process.env.DB_USER || 'postgres',
     password: process.env.DB_PASSWORD || 'postgres',
     dialect: process.env.DB_DIALECT || 'postgres',
+    ssl: process.env.DB_SSL === 'true',
     pool: {
       max: parseInt(process.env.DB_POOL_MAX, 10) || 10,
       min: parseInt(process.env.DB_POOL_MIN, 10) || 0,
