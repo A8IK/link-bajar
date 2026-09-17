@@ -5,14 +5,21 @@ const logger = require('./utils/logger');
 const { connectDB, sequelize } = require('./config/database');
 const { connectRedis } = require('./config/redis');
 const { initSockets } = require('./sockets');
+const { seedAdmins } = require('../scripts/create-admins');
 
 const start = async () => {
   try {
     await connectDB();
     await connectRedis();
 
-    if (config.env === 'development') {
+    if (config.env === 'development' || process.env.DB_SYNC === 'true') {
       await sequelize.sync({ alter: false });
+      logger.info('Sequelize sync completed');
+    }
+
+    if (process.env.SEED_ADMINS === 'true') {
+      await seedAdmins(logger);
+      logger.info('Admin seeding completed');
     }
 
     const server = http.createServer(app);
