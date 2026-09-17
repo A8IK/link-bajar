@@ -37,15 +37,11 @@ const AdminWithdrawals = lazy(() => import('@/pages/admin/Withdrawals'));
 const AdminReferrals = lazy(() => import('@/pages/admin/Referrals'));
 const AdminNiches = lazy(() => import('@/pages/admin/Niches'));
 
-function Loading() {
-  return <div className="min-h-[60vh] flex items-center justify-center text-slate-400">Loading…</div>;
-}
-
 const buyerRoles = ['buyer', 'agency', 'partnership', 'admin'];
 
 export default function App() {
   return (
-    <Suspense fallback={<Loading />}>
+    <Suspense fallback={null}>
       <Routes>
         {/* Public */}
         <Route element={<PublicLayout />}>

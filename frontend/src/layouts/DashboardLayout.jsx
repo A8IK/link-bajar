@@ -1,6 +1,6 @@
 import { Outlet, NavLink, Link, useNavigate } from 'react-router-dom';
 import { useAuthStore } from '@/store/authStore';
-import { useState } from 'react';
+import { Suspense, useState } from 'react';
 import clsx from 'clsx';
 import {
   LayoutDashboard,
@@ -147,7 +147,9 @@ export default function DashboardLayout({ role }) {
         </header>
 
         <main className="flex-1 p-4 lg:p-6">
-          <Outlet />
+          <Suspense fallback={<div className="min-h-[60vh] flex items-center justify-center text-slate-400">Loading…</div>}>
+            <Outlet />
+          </Suspense>
         </main>
       </div>
     </div>

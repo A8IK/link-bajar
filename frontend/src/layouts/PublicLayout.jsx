@@ -2,7 +2,7 @@ import { Outlet, Link, NavLink } from 'react-router-dom';
 import { useAuthStore } from '@/store/authStore';
 import { useCartStore } from '@/store/cartStore';
 import { Menu, X, ShoppingCart } from 'lucide-react';
-import { useState } from 'react';
+import { Suspense, useState } from 'react';
 import clsx from 'clsx';
 
 const nav = [
@@ -96,7 +96,9 @@ export default function PublicLayout() {
       </header>
 
       <main className="flex-1">
-        <Outlet />
+        <Suspense fallback={<div className="min-h-[60vh] flex items-center justify-center text-slate-400">Loading…</div>}>
+          <Outlet />
+        </Suspense>
       </main>
 
       <footer className="border-t border-slate-100 bg-white">
